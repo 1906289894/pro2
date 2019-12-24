@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userdao" class="com.wb.dao.impl.UserDaoImpl">
+        <property name="queryRunner" ref="runner"></property>
+    </bean>
+    <bean id="userService" class="com.wb.service.impl.UserServiceImpl">
+        <property name="iUserDao" ref="userdao"></property>
+    </bean>
+    <bean id="user" class="com.wb.domain.User">
+        <property name="id" value="1"></property>
+        <property name="username" value="王斌"></property>
+        <property name="password" value="wb123456"></property>
+    </bean>
+
+
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner">
+        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/books"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+</beans>
